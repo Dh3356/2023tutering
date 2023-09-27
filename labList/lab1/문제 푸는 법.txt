@@ -1,0 +1,13 @@
+문제 푸는 법
+
+git pull origin main(변경사항 받아오는 명령어)
+cp 를 통해 lab1 폴더의 모든 파일을 자신의 디렉터리로 복사한 후
+문제의 코드를 visual studio로 복사 후 푼다(cpp파일만 열면 빌드가 안 될 것임).
+다 풀었으면 visual studio의 코드를 다시 문제로 복사한다.
+
+1번 문제를 푼 경우
+
+자기 디렉터리로 이동 후
+git add LinkedList1.cpp
+git commit -m "1번 문제 완료"
+git push origin main
