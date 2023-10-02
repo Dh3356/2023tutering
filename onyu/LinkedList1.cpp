@@ -6,39 +6,34 @@ struct LinkedList {
 	int data;
 	LinkedList* next;
 } typedef LinkedList;
-void PRINTALL(LinkedList* arr) {
-	LinkedList* now = arr;
+void PRINTALL(LinkedList* list) {
+	LinkedList* now = list;
 	while (now != NULL) {
 		printf("%d \n", now->data);
 		now = now->next;
 	}
-
 }
-void INPUT(LinkedList** list, int data) {
-	LinkedList* arr = (LinkedList*)malloc(sizeof(LinkedList));
+void INPUT(LinkedList* list, int input) {
+	LinkedList* now = (LinkedList*)malloc(sizeof(LinkedList));
 
-	arr->data = data;
-	arr->next = *list;
-	*list = arr;
+	now->data = input;
+	now->next = list->next;
+	list->next = now;
 }
 int main() {
 
-	//LinkedList* head = (LinkedList*)malloc(sizeof(LinkedList));
+	//LinkedList를 이용하여 사용자가 EOF(Windows에서는 Ctrl + Z를 3번 입력하면 됨)를 입력할 때까지 
+	//입력받은 정수 데이터를 Linked List에 순서대로 저장하고
+	//저장된 데이터를 정렬한 후, 전부 출력하는 프로그램 작성.
+	//데이터를 넣는 함수 작성, 정렬하는 함수, 데이터를 전부 출력하는 함수 작성
+
+	LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
+
 	int input = 0;
-
-	LinkedList* list = NULL;
 	while (scanf("%d", &input) != EOF) {
-
-		INPUT(&list, input);
+		INPUT(list, input);
 	}
 
 	PRINTALL(list);
-
-
-
-	//LinkedList를 이용하여 사용자가 EOF(Windows에서는 Ctrl + Z를 3번 입력하면 됨)를 입력할 때까지 
-	//입력받은 정수 데이터를 Linked List에 역순으로 저장하고(a->b 에서 c 입력 시 c->a->b)
-	//저장된 데이터를 순서대로 전부 출력하는 프로그램을 작성.
-	//데이터를 넣는 함수 작성, 데이터를 전부 출력하는 함수 작성
 	return 0;
 }
