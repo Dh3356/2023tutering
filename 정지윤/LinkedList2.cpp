@@ -16,14 +16,23 @@ struct LinkedList {
 
 LinkedList* addData(LinkedList* LinkedList1, Student* students) {
 	LinkedList* newLinkedList = (LinkedList*)malloc(sizeof(LinkedList));
+	LinkedList* first = LinkedList1;
 
 	if (newLinkedList == NULL) {
 		printf("실패\n");
 	}
 	newLinkedList->data = students;
-	newLinkedList->next = LinkedList1;
-	return newLinkedList;
+	newLinkedList->next = NULL;
 
+	if (LinkedList1 == NULL) {
+		return newLinkedList;
+	}
+	while (first->next != NULL) {
+		first = first->next;
+	}
+	first->next = newLinkedList;
+
+	return LinkedList1;
 }
 
 void printData(LinkedList* LinkedList1) {
@@ -48,9 +57,14 @@ int main() {
 
 		if (menu == 1) {
 			Student* students = (Student*)malloc(sizeof(Student));
+			char buf[100];
 
 			printf("학생의 이름과 나이, 학번을 입력하세요.\n");
-			scanf("%s %d %d", students->name, &students->age, &students->id);
+
+			students->name = (char*)malloc(strlen(buf) + 1);
+			scanf("%s", buf);
+			strcpy(students->name, buf);
+			scanf("%d %d", &students->age, &students->id);
 
 			LinkedList1=addData(LinkedList1, students);
 		}
