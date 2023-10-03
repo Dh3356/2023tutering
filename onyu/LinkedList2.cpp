@@ -24,17 +24,30 @@ void PRINTALL(LinkedList* list) {
 	}
 
 }
-void INPUTDATA(LinkedList* list, Student* stu) {
+
+void INPUTDATA(LinkedList** list, Student* stu) {
 	stu->name = (char*)malloc(sizeof(char) * 100);
 	printf("학생 이름과 나이, 학번을 입력하세요\n");
 	scanf("%s", stu->name);
 	scanf("%d", &(stu->age));
 	scanf("%d", &(stu->id));
 
+	LinkedList* head = *list;
 	LinkedList* newLink = (LinkedList*)malloc(sizeof(LinkedList));
+
 	newLink->data = stu;
-	newLink->next = list->next;
-	list->next = newLink;
+	newLink->next = NULL;
+
+	if (*list == NULL) {
+		*list = newLink;
+	}
+	else {
+		while (head->next != NULL) {
+			head = head->next;
+		}
+	}
+
+	head->next = newLink;
 
 
 
@@ -56,9 +69,10 @@ int main() {
 
 		if (input == 1) {
 			Student* stu = (Student*)malloc(sizeof(Student));
-			INPUTDATA(list, stu);
+			INPUTDATA(&list, stu);
 		}
 		else if (input == 2) {
+
 			PRINTALL(list);
 		}
 		else {
