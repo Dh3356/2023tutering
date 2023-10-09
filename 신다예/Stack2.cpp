@@ -69,13 +69,18 @@ int main() {
 	
 	printf("Ãâ·Â: ");
 
+
 	int numSize = stack->size;
-	char outputData[100];
-	for (int i = numSize-1; i >= 0; i--) {
-		 outputData[i] = pop(stack);
+
+	Stack* tempStack = (Stack*)malloc(sizeof(Stack));
+	tempStack->top = NULL;
+	tempStack->size = 0;
+
+	for (int i = 0; i < numSize; i++) {
+		push(tempStack, pop(stack));
 	}
 	for (int i = 0; i < numSize; i++) {
-		printf("%c", outputData[i]);
+		printf("%c", pop(tempStack));
 	}
 
 	return 0;
