@@ -32,6 +32,7 @@ char pop(Stack* stack) {
 	char dataInTop = temp->data;
 	stack->top = temp->next;
 	free(temp);
+	(stack->size)--;
 	return dataInTop;
 }
 
@@ -47,10 +48,7 @@ int main() {
 	//입력: abccddx
 	//출력: abcdx
 	Stack* stack = (Stack*)malloc(sizeof(Stack));
-	Stack* tempStack = (Stack*)malloc(sizeof(Stack));
 	
-	tempStack->top = NULL;
-	tempStack->size = 0;
 	stack->top = NULL;
 	stack->size = 0;
 
@@ -61,7 +59,8 @@ int main() {
 	for (int i = 0; data[i] != '\0'; i++) {
 		char temp = data[i];
 		if (data[i] == data[i + 1]) {
-			push(tempStack, temp);
+			push(stack, temp);
+			pop(stack);
 		}
 		else {
 			push(stack, temp);
