@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 #define MAX_SIZE 100
 
@@ -51,6 +52,7 @@ int duplicate(struct Stack* stack, char buffer) {
 
 int main() {
 	struct Stack* stack = (Stack*)malloc(sizeof(Stack));
+	struct Stack* newStack = (Stack*)malloc(sizeof(Stack));
 	stack->top = NULL;
 	stack->size = 0;
 	char temp[MAX_SIZE];
@@ -66,9 +68,16 @@ int main() {
 	}
 
 	while (stack->top != NULL) {
-		printf("%s", stack->top->data);
+		pushStack(newStack, stack->top->data);
 		popStack(stack);
 	}
+
+	while (newStack->top != NULL) {
+		printf("%c", newStack->top->data);
+		popStack(newStack);
+	}
+	
+
 	printf("\n");
 
 	free(stack);
