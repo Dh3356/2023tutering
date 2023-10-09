@@ -13,7 +13,9 @@ void init(struct Stack** stack, int maxSize) {
 	*stack = (struct Stack*)malloc(sizeof(struct Stack));
 	(*stack)->size = 0;
 	(*stack)->maxSize = maxSize;
-	(*stack)->top == NULL;
+	for (int i = 0; i < (*stack)->size; i++) {
+		(*stack)->top[i] == NULL;
+	}
 }
 
 int size(struct Stack* stack) {
