@@ -12,8 +12,9 @@ struct Stack {
 void init(Stack** stack, int maxSize) { //1. Stack을 초기화(동적 할당, 내부 변수 초기화)하는 함수(init)
 
 	(*stack) = (Stack*)malloc(sizeof(Stack));
-	for (int i = 0; i < (*stack)->size; i++) {
-		(*stack)->top[i] = NULL;
+	
+	for (int i = 0; i < maxSize; i++) {
+		(*stack)->top[i] = NULL; 
 	}
 	(*stack)->size = 0;
 	(*stack)->maxSize = maxSize;
@@ -36,7 +37,7 @@ void push(Stack* stack, int data) { //4. Stack에 데이터를 넣는 함수(push)
 		printf("stack이 다 찼습니다람쥐");
 	}
 	else {
-		stack->top[stack->size+1] = data;
+		stack->top[stack->size] = data;
 		(stack->size)++;
 	}
 
@@ -48,7 +49,7 @@ int pop(Stack* stack) { //5. Stack에서 데이터를 빼는 함수(pop)
 		return 0;
 	}
 	else {
-		temp = stack->top[stack->size];
+		temp = stack->top[stack->size-1];
 		stack->top[stack->size] = NULL;
 		(stack->size)--;
 		return temp;
@@ -60,7 +61,7 @@ int peek(Stack* stack) { //6. Stack의 top에 있는 데이터를 반환하는 함수(peek)
 		return 0;
 	}
 	else {
-		return stack->top[stack->size];
+		return stack->top[stack->size-1];
 	}
 }
 
@@ -69,7 +70,7 @@ void printStack(Stack* stack) { //6. Stack의 모든 데이터를 출력하는 함수(printSt
 		printf("stack에 아무것도 없습니다");
 	}
 	else {
-		for (int i = 1; i <= stack->size; i++) {
+		for (int i = 0; i < stack->size; i++) {
 			printf("%d, ", stack->top[i]);
 		}
 		printf("\n");
@@ -77,7 +78,7 @@ void printStack(Stack* stack) { //6. Stack의 모든 데이터를 출력하는 함수(printSt
 }
 
 void deleteStack(Stack* stack) {  //7. Stack을 삭제하는 함수(deleteStack)
-
+	free(stack);
 }
 
 int isEmpty(Stack* stack) {  //8. Stack이 비어있는지 확인하는 함수(isEmpty)
@@ -136,6 +137,7 @@ int main() {
 	printStack(stack);
 	printf("Stack 삭제\n");
 	deleteStack(stack);
+
 	return 0;
 }
 
