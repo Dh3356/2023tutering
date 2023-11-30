@@ -12,34 +12,34 @@ struct Queue {
 	LinkedList* rear;
 }typedef Queue;
 
-int init(Queue* queue) {
-	queue = (Queue*)malloc(sizeof(Queue));
+int init(Queue** queue) {
+	*queue = (Queue*)malloc(sizeof(Queue));
 	if (queue == NULL) {
 		return 0;
 	}
-	(queue)->front = NULL;
-	(queue)->rear = NULL;
+	(*queue)->front = NULL;
+	(*queue)->rear = NULL;
 	return 1;
 }
 
 void enQueue(Queue* queue, int data) {
-	
-		LinkedList* newLinkedList = (LinkedList*)malloc(sizeof(LinkedList));
-		newLinkedList->data = data;
-		newLinkedList->next = NULL;
-		if (queue->rear==NULL) {
-			queue->front = newLinkedList;
-			queue->rear = newLinkedList;
-		}
-		else {
-			queue->rear->next = newLinkedList;
-			queue->rear = newLinkedList;
-		}
+
+	LinkedList* newLinkedList = (LinkedList*)malloc(sizeof(LinkedList));
+	newLinkedList->data = data;
+	newLinkedList->next = NULL;
+	if (queue->rear == NULL) {
+		queue->front = newLinkedList;
+		queue->rear = newLinkedList;
+	}
+	else {
+		queue->rear->next = newLinkedList;
+		queue->rear = newLinkedList;
+	}
 
 }
 
 int deQueue(Queue* queue) {
-	if (queue->front==NULL) {
+	if (queue->front == NULL) {
 		return -1;
 	}
 	else {
@@ -57,10 +57,10 @@ int deQueue(Queue* queue) {
 }
 
 int main() {
-	Queue queueA;
-	Queue queueB;
+	Queue *queueA;
+	Queue *queueB;
 
-	Queue reQueue;//재배열한 큐
+	Queue *reQueue;//재배열한 큐
 	init(&reQueue);
 
 	int num;
@@ -75,36 +75,36 @@ int main() {
 	//A와 B에 숫자를 입력
 	for (int i = 0; i < numSize; i++) {
 		scanf("%d", &num);
-		enQueue(&queueA, num);
+		enQueue(queueA, num);
 	}
 
 	for (int i = 0; i < numSize; i++) {
 		scanf("%d", &num);
-		enQueue(&queueB, num);
+		enQueue(queueB, num);
 	}
 
 	//A의 숫자를 B에 의해서 재배열
-	while (queueB.front!=NULL) {
-		int B = deQueue(&queueB);
+	while ((*queueB).front != NULL) {
+		int B = deQueue(queueB);
 		//일단 하나를 빼내고
 
-		while (queueA.front->data!=B) {
-			int A = deQueue(&queueA);
+		while ((*queueA).front->data != B) {
+			int A = deQueue(queueA);
 			//A에 있는걸 빼서
-			enQueue(&reQueue, A);
+			enQueue(reQueue, A);
 			//새로운 큐에 재배열
 		}
-		int A = deQueue(&queueA);
-		enQueue(&reQueue, A);
+		int A = deQueue(queueA);
+		enQueue(reQueue, A);
 	}
-	while (queueA.front!=NULL) {
-		int A = deQueue(&queueA);
-		enQueue(&reQueue, A);
+	while ((*queueA).front != NULL) {
+		int A = deQueue(queueA);
+		enQueue(reQueue, A);
 	}
 
 	//재배열된 결과를 출력
-	while (reQueue.front != NULL) {
-		int numPrint = deQueue(&reQueue);
+	while ((*reQueue).front != NULL) {
+		int numPrint = deQueue(reQueue);
 		printf("%d ", numPrint);
 	}
 	return 0;
